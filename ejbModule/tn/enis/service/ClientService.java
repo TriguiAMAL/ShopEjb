@@ -54,4 +54,10 @@ public class ClientService {
             return false;
         }
     }
+	
+	public boolean exists(String cin) {
+	    Client existingClient = clientDao.findById(cin);
+	    return existingClient != null;
+	}
+
 }
