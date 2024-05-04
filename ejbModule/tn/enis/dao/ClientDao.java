@@ -47,5 +47,10 @@ public class ClientDao {
 				.setParameter("nom", "%" + nom + "%").setParameter("prenom", "%" + nom + "%").getResultList();
 	}
 
+	public List<Client> findAllByCinStartingWith(String cinPrefix) {
+        return entityManager.createQuery("select c from Client c where c.cin like :cinPrefix", Client.class)
+                .setParameter("cinPrefix", cinPrefix + "%").getResultList();
+    }
+
 
 }

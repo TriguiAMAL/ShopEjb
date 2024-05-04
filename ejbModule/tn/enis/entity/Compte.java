@@ -1,46 +1,29 @@
 package tn.enis.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.EqualsAndHashCode.Include;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "t_compte")
-@Getter
-@Setter
-@NoArgsConstructor
-
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Compte implements Serializable {
+public class Compte implements Serializable  {
 
 	private static final long serialVersionUID = 1L;
-	@Id 
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
-	@Include
+	@Id // PK
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // auto-increment
 	private Long rib;
 	private float solde;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "client_id", nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "client_id")
 	private Client client;
-
-
-	
 
 	public Compte(float solde, Client client) {
 		super();
@@ -48,6 +31,52 @@ public class Compte implements Serializable {
 		this.client = client;
 	}
 
-	
+	public Compte() {
+		super();
+	}
+
+	public Long getRib() {
+		return rib;
+	}
+
+	public void setRib(Long rib) {
+		this.rib = rib;
+	}
+
+	public float getSolde() {
+		return solde;
+	}
+
+	public void setSolde(float solde) {
+		this.solde = solde;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(rib);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Compte other = (Compte) obj;
+		return Objects.equals(rib, other.rib);
+	}
 
 }

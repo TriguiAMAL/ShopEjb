@@ -59,5 +59,9 @@ public class ClientService {
 	    Client existingClient = clientDao.findById(cin);
 	    return existingClient != null;
 	}
+	
+	public List<Client> findAllByCinStartingWith(String cinPrefix) {
+        return clientDao.findAllByCinStartingWith(cinPrefix);
+    }
 
 }
